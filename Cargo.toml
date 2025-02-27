@@ -1,0 +1,8 @@
+[package]
+name = "read_bin"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+umya-spreadsheet = "2.2.3"
+uuid = { version = "1.15.0", features = ["v4"] }
