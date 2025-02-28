@@ -1,4 +1,9 @@
-use std::io::{self, Write};
+use std::{
+    fs::File,
+    io::{self, Read, Write},
+    path::Path,
+};
+pub mod constant;
 
 use umya_spreadsheet::Spreadsheet;
 use uuid::Uuid;
@@ -111,6 +116,7 @@ pub fn find_rate_raw_by_c_name(name: String) -> Option<Raw> {
 }
 
 pub fn get_input_data_list() -> Vec<String> {
+    io::stdout().flush().unwrap();
     println!("请输入数据 换行符隔开 exit 结束:");
     let mut data = Vec::<String>::new();
 
@@ -150,4 +156,47 @@ pub fn out_double_row(raws: Vec<String>, book: &mut Spreadsheet) {
     }
 
     let _ = umya_spreadsheet::writer::xlsx::write(&book, path);
+}
+
+pub fn out_one_row(raws1: Vec<String>, raws2: Vec<String>, book: &mut Spreadsheet) {
+    let uuid = Uuid::new_v4().to_string();
+    let path = format!("{}.xlsx", uuid);
+    let path = std::path::Path::new(&path);
+
+    for i in 0..raws1.len() {
+        book.get_sheet_by_name_mut("Sheet1")
+            .unwrap()
+            .get_cell_mut((1 as u32, (i + 1) as u32))
+            .set_value(raws1[i].clone().as_str());
+    }
+
+    for i in 0..raws2.len() {
+        book.get_sheet_by_name_mut("Sheet1")
+            .unwrap()
+            .get_cell_mut((2 as u32, (i + 1) as u32))
+            .set_value(raws2[i].clone().as_str());
+    }
+
+    let _ = umya_spreadsheet::writer::xlsx::write(&book, path);
+}
+
+pub fn read_row_from_file(path: &Path, column_idx: u32) -> Vec<String> {
+    let book = umya_spreadsheet::reader::xlsx::read(path).unwrap();
+    let sheet = book.get_sheet_by_name("Sheet1").unwrap();
+    let raw_cells = sheet.get_collection_by_column(&column_idx);
+    let res = raw_cells.into_iter().map(|raw| raw.get_value());
+    println!("{:?}", res);
+    vec!["".to_string()]
+    // res
+}
+
+pub fn read_line_from_file(path: &Path) -> Vec<String> {
+    let mut file = File::open(path).unwrap();
+    let mut content = String::new();
+    file.read_to_string(&mut content).unwrap();
+    let strs = content
+        .split("\n")
+        .map(|str| str.trim().replace(" ", "").to_string())
+        .collect::<Vec<String>>();
+    return strs;
 }

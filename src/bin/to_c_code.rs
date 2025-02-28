@@ -7,18 +7,21 @@ fn main() {
     let cleaned_names: Vec<String> = c_names
         .into_iter()
         .map(|name| {
-            if let Some(index) = name.rfind('（') {
+            let mut s: String = name.clone();
+            if name.contains(" ") {
+                s = s.replace(" ", "");
+            }
+            if let Some(index) = s.rfind('（') {
                 // 找到最后一个 '（' 的位置
-                name[..index].to_string() // 截取到 '(' 之前的部分
-            } else if let Some(index) = name.rfind('(') {
-                name[..index].to_string()
+                s[..index].to_string() // 截取到 '(' 之前的部分
+            } else if let Some(index) = s.rfind('(') {
+                s[..index].to_string()
             } else {
-                name // 如果没有 '（'，直接返回原字符串
+                s // 如果没有 '（'，直接返回原字符串
             }
         })
         .collect();
 
-    println!("all clean name:{:?}", cleaned_names);
     let mut unknown_names: Vec<String> = Vec::new();
 
     let data: Vec<String> = cleaned_names
