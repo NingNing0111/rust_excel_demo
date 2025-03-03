@@ -12000,5 +12000,251 @@ pub fn get_unit(key: String) -> String {
             return values[i].clone();
         }
     }
-    return String::new();
+    return String::from("未知 手动查找");
+}
+
+// 获取固定资产期限
+pub fn get_fixed(key: String) -> String {
+    let keys = vec![
+        "1".to_string(),
+        "2".to_string(),
+        "3".to_string(),
+        "6".to_string(),
+        "9".to_string(),
+        "12".to_string(),
+        "18".to_string(),
+        "24".to_string(),
+        "36".to_string(),
+        "48".to_string(),
+        "60".to_string(),
+        "92".to_string(),
+        "96".to_string(),
+        "120".to_string(),
+        "132".to_string(),
+        "136".to_string(),
+        "144".to_string(),
+        "156".to_string(),
+        "168".to_string(),
+        "172".to_string(),
+        "180".to_string(),
+        "216".to_string(),
+        "360".to_string(),
+    ];
+    let values = vec![
+        "R03033".to_string(),
+        "R03033".to_string(),
+        "R03034".to_string(),
+        "R03035".to_string(),
+        "R03035".to_string(),
+        "R03036".to_string(),
+        "R03036".to_string(),
+        "R03037".to_string(),
+        "R03038".to_string(),
+        "R03039".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+    ];
+
+    for i in 0..keys.len() {
+        if keys[i] == key {
+            return values[i].clone();
+        }
+    }
+    return String::from("未知 手动查找");
+}
+
+// 获取流动固定资产期限
+pub fn get_flow(key: String) -> String {
+    let keys = vec![
+        "1".to_string(),
+        "2".to_string(),
+        "3".to_string(),
+        "4".to_string(),
+        "6".to_string(),
+        "7".to_string(),
+        "9".to_string(),
+        "10".to_string(),
+        "12".to_string(),
+        "18".to_string(),
+        "20".to_string(),
+        "23".to_string(),
+        "24".to_string(),
+        "36".to_string(),
+        "38".to_string(),
+        "48".to_string(),
+        "60".to_string(),
+        "94".to_string(),
+        "120".to_string(),
+        "136".to_string(),
+        "144".to_string(),
+        "180".to_string(),
+        "360".to_string(),
+    ];
+    let values = vec![
+        "R02033".to_string(),
+        "R02033".to_string(),
+        "R02034".to_string(),
+        "R02034".to_string(),
+        "R02035".to_string(),
+        "R02035".to_string(),
+        "R02035".to_string(),
+        "R02035".to_string(),
+        "R02036".to_string(),
+        "R02036".to_string(),
+        "R02036".to_string(),
+        "R02036".to_string(),
+        "R02037".to_string(),
+        "R02037".to_string(),
+        "R02038".to_string(),
+        "R02039".to_string(),
+        "R02040".to_string(),
+        "R02040".to_string(),
+        "R02040".to_string(),
+        "R02040".to_string(),
+        "R02040".to_string(),
+        "R02040".to_string(),
+        "R02040".to_string(),
+    ];
+    for i in 0..keys.len() {
+        if keys[i] == key {
+            return values[i].clone();
+        }
+    }
+    return String::from("未知 手动查找");
+}
+
+pub fn get_wh_flow(key: String) -> String {
+    let keys = vec![
+        "1".to_string(),
+        "2".to_string(),
+        "3".to_string(),
+        "4".to_string(),
+        "6".to_string(),
+        "8".to_string(),
+        "9".to_string(),
+        "12".to_string(),
+        "15".to_string(),
+        "18".to_string(),
+        "21".to_string(),
+        "24".to_string(),
+        "30".to_string(),
+        "36".to_string(),
+        "38".to_string(),
+        "39".to_string(),
+        "48".to_string(),
+        "55".to_string(),
+        "60".to_string(),
+        "93".to_string(),
+        "94".to_string(),
+        "120".to_string(),
+        "136".to_string(),
+        "180".to_string(),
+        "360".to_string(),
+    ];
+    let values = vec![
+        "R02033".to_string(),
+        "R02033".to_string(),
+        "R02034".to_string(),
+        "R02034".to_string(),
+        "R02035".to_string(),
+        "R02035".to_string(),
+        "R02035".to_string(),
+        "R02036".to_string(),
+        "R02036".to_string(),
+        "R02036".to_string(),
+        "R02036".to_string(),
+        "R02037".to_string(),
+        "R02037".to_string(),
+        "R02038".to_string(),
+        "R02038".to_string(),
+        "R02038".to_string(),
+        "R02039".to_string(),
+        "R02039".to_string(),
+        "R02040".to_string(),
+        "R02040".to_string(),
+        "R02040".to_string(),
+        "R02040".to_string(),
+        "R02040".to_string(),
+        "R02040".to_string(),
+        "R02040".to_string(),
+    ];
+
+    for i in 0..keys.len() {
+        if keys[i] == key {
+            return values[i].clone();
+        }
+    }
+    return String::from("未知 手动查找");
+}
+
+pub fn get_wh_fixed(key: String) -> String {
+    let keys = vec![
+        "1".to_string(),
+        "2".to_string(),
+        "3".to_string(),
+        "6".to_string(),
+        "9".to_string(),
+        "12".to_string(),
+        "24".to_string(),
+        "36".to_string(),
+        "48".to_string(),
+        "60".to_string(),
+        "62".to_string(),
+        "120".to_string(),
+        "136".to_string(),
+        "161".to_string(),
+        "164".to_string(),
+        "167".to_string(),
+        "171".to_string(),
+        "172".to_string(),
+        "174".to_string(),
+        "177".to_string(),
+        "180".to_string(),
+        "216".to_string(),
+        "360".to_string(),
+    ];
+
+    let values = vec![
+        "R03033".to_string(),
+        "R03033".to_string(),
+        "R03034".to_string(),
+        "R03035".to_string(),
+        "R03035".to_string(),
+        "R03036".to_string(),
+        "R03037".to_string(),
+        "R03038".to_string(),
+        "R03039".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+        "R03040".to_string(),
+    ];
+
+    for i in 0..keys.len() {
+        if keys[i] == key {
+            return values[i].clone();
+        }
+    }
+    return String::from("未知 手动查找");
 }

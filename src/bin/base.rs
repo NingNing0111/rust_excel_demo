@@ -1,7 +1,8 @@
 use std::path::Path;
 
 use read_bin::{
-    constant::get_unit, find_rate_raw_by_c_name, get_rate_center_data, read_line_from_file, Raw,
+    constant::get_unit, find_rate_raw_by_c_name, get_input_data_list, get_rate_center_data,
+    read_line_from_file, Raw,
 };
 use umya_spreadsheet::Spreadsheet;
 
@@ -11,8 +12,10 @@ fn yuan(book: &mut Spreadsheet, c_names: Vec<String>, currency_codes: Vec<String
         .clone()
         .into_iter()
         .map(|name| {
-            let s = name.clone();
-            let s = s.replace(" ", "");
+            let mut s: String = name.clone();
+            if name.contains(" ") {
+                s = s.replace(" ", "");
+            }
             if let Some(index) = s.rfind('（') {
                 // 找到最后一个 '（' 的位置
                 s[..index].to_string() // 截取到 '(' 之前的部分
@@ -31,8 +34,8 @@ fn yuan(book: &mut Spreadsheet, c_names: Vec<String>, currency_codes: Vec<String
                 None => Raw {
                     rc_code: String::new(),
                     rc_name: String::new(),
-                    company_code: String::new(),
-                    company_name: String::new(),
+                    company_code: String::from(&format!("{}-未知公司代码", name)),
+                    company_name: name,
                 },
             };
             raw.company_code
@@ -43,10 +46,19 @@ fn yuan(book: &mut Spreadsheet, c_names: Vec<String>, currency_codes: Vec<String
     let raw_data = get_rate_center_data();
     let mut rc_codes = Vec::<String>::new();
     for c_code in c_codes.clone() {
+        let mut rc_code = String::new();
+        let mut is_find = false;
         for raw in raw_data.iter() {
             if c_code == raw.company_code {
-                rc_codes.push(raw.rc_code.clone());
+                rc_code = raw.rc_code.clone();
+                is_find = true;
+                break;
             }
+        }
+        if is_find {
+            rc_codes.push(rc_code);
+        } else {
+            rc_codes.push(String::from(&format!("{} -> 未知利润中心", c_code)));
         }
     }
 
@@ -167,6 +179,7 @@ fn out_wl_gs(book: &mut Spreadsheet, wl_code: Vec<String>) {
         }
     }
 }
+
 fn main() {
     let c_name_path = Path::new("base/原数据-责任中心名称.txt");
     let currency_code_path = Path::new("base/原数据-币种简称.txt");
@@ -180,10 +193,22 @@ fn main() {
     let wl_codes = read_line_from_file(wl_code_path);
 
     let mut book = umya_spreadsheet::new_file();
-    yuan(&mut book, c_names, currency_code);
-    out_money(&mut book, money);
+    yuan(&mut book, c_names.clone(), currency_code.clone());
+    out_money(&mut book, money.clone());
     if wl_codes.len() > 0 {
-        out_wl_gs(&mut book, wl_codes);
+        out_wl_gs(&mut book, wl_codes.clone());
     }
     let _ = umya_spreadsheet::writer::xlsx::write(&book, out_path);
+
+    println!("===============================================");
+    println!(
+        "c_name_len:{} 行 currency_len:{} 行 money:{} 行 wl_code_len:{} 行",
+        c_names.len(),
+        currency_code.len(),
+        money.len(),
+        wl_codes.len()
+    );
+    println!("===============================================");
+
+    let _ = get_input_data_list();
 }

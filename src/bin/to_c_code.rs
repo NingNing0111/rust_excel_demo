@@ -1,9 +1,13 @@
-use read_bin::{find_rate_raw_by_c_name, get_input_data_list, out_double_row, Raw};
+use std::path::Path;
+
+use read_bin::{
+    find_rate_raw_by_c_name, get_input_data_list, out_double_row, read_line_from_file, Raw,
+};
 
 /// 根据公司名 得到公司代码 并且两行打印
 fn main() {
-    let c_names = get_input_data_list();
-
+    let c_name_path = Path::new("base/原数据-责任中心名称.txt");
+    let c_names = read_line_from_file(c_name_path);
     let cleaned_names: Vec<String> = c_names
         .into_iter()
         .map(|name| {

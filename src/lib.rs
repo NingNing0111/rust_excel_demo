@@ -90,6 +90,12 @@ pub fn get_rate_center_data() -> Vec<Raw> {
             company_name: "CNPC (HK) Overseas Capital Ltd.".to_string(),
         },
         Raw {
+            rc_code: "H208700001".to_string(),
+            rc_name: "中国石油财务（香港）有限公司合并抵销中心".to_string(),
+            company_code: "H208".to_string(),
+            company_name: "CNPC (HK) Overseas Capital Ltd.".to_string(),
+        },
+        Raw {
             rc_code: "H209700001".to_string(),
             rc_name: "总部和分公司抵消".to_string(),
             company_code: "H209".to_string(),
